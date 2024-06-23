@@ -1,0 +1,73 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        flutter-version: [2.10.0]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter ${{ matrix.flutter-version }}
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ matrix.flutter-version }}
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Run tests
+      run: flutter test
+
+    - name: Build APK
+      run: flutter build apk --release
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: apk
+        path: build/app/outputs/flutter-apk/app-release.apk
+
+  ios-build:
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        flutter-version: [2.10.0]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter ${{ matrix.flutter-version }}
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ matrix.flutter-version }}
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Set up Xcode
+      run: |
+        sudo xcode-select -s /Applications/Xcode_13.2.1.app
+        sudo xcodebuild -license accept
+
+    - name: Build iOS
+      run: flutter build ios --no-codesign
+
+    - name: Archive build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ios-build
+        path: build/ios/ipa
