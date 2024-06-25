@@ -1,4 +1,6 @@
 // lib/providers/shooting_provider.dart
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';

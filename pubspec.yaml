@@ -1,7 +1,14 @@
+name: strawberry_thinning_annotation
+version: 1.0.0+1
+environment:
+  sdk: ^3.4.0
 dependencies:
   flutter:
-    sdk: flutter
+    sdk: flutter 
   provider: ^6.0.1
   shared_preferences: ^2.0.7
   path_provider: ^2.0.11
   image_picker: ^0.8.4+6 # 画像を取得するためのパッケージ
+  flutter_test:
+    sdk: flutter
+  mockito: ^5.4.4

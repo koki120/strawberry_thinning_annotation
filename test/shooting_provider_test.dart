@@ -1,14 +1,12 @@
 // test/shooting_provider_test.dart
+import 'dart:typed_data';
+
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider_platform_interface/path_provider_platform_interface.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:mockito/mockito.dart';
-import 'dart:io';
 
 import '../lib/providers/shooting_provider.dart';
-import '../lib/models/shooting_parameters.dart';
 
 class MockPathProviderPlatform extends Mock implements PathProviderPlatform {}
 
